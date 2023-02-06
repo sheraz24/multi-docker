@@ -1,0 +1,16 @@
+language: generic 
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t sheraz24/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true sheraz24/react-test npm test
+
+after_succss: 
+  - docker build -t sheraz24/multi-client ./client 
+  - docker build -t sheraz24/multi-nginx ./nginx
+  - docker build -t sheraz24/multi-server ./server
+  - docker build -t sheraz24/multi-worker ./worker
