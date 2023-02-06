@@ -14,3 +14,10 @@ after_succss:
   - docker build -t sheraz24/multi-nginx ./nginx
   - docker build -t sheraz24/multi-server ./server
   - docker build -t sheraz24/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push sheraz24/multi-client
+  - docker push sheraz24/multi-nginx
+  - docker push sheraz24/multi-server
+  - docker push sheraz24/multi-worker
+
